@@ -20,22 +20,24 @@ func solve() {
 		g[u] = append(g[u], v)
 		g[v] = append(g[v], u)
 	}
-	hasCycle(n, g)
+	if hasCycle(n, g) {
+		fmt.Println("YES")
+	} else {
+		fmt.Println("NO")
+	}
 }
 
-func hasCycle(n int, g [][]int) {
+func hasCycle(n int, g [][]int) bool {
 	vis := make([]bool, n)
 	for i := 0; i < n; i++ {
 		if !vis[i] && dfs(g, vis, i, i) {
-			fmt.Println("YES")
-			return
+			return true
 		}
 	}
-	fmt.Println("NO")
+	return false
 }
 
 func dfs(g [][]int, vis []bool, u int, parent int) bool {
-	fmt.Fprintln(os.Stderr, "enter", "u", u, "parent", parent)
 	vis[u] = true
 	for _, next := range g[u] {
 		if !vis[next] {
@@ -43,12 +45,9 @@ func dfs(g [][]int, vis []bool, u int, parent int) bool {
 				return true
 			}
 		} else if next != parent {
-			fmt.Fprintln(os.Stderr, vis)
-			fmt.Fprintln(os.Stderr, "next is visited and != u", next)
 			return true
 		}
 	}
-	fmt.Fprintln(os.Stderr, "left", "u", u, "parent", parent)
 	return false
 }
 

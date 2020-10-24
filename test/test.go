@@ -73,6 +73,9 @@ func RunTest(name string, t *testing.T) {
 			if len(erres) > 0 {
 				fmt.Println("os.Stderr>", erres)
 			}
+			if len(input) > 1000 {
+				input = input[:1000]
+			}
 			t.Fatalf("TEST %d\nOUTPUT\n%s\nINPUT\n%s"+
 				"EXPECTED\n%s\n\n", i+1, res, input, output)
 		} else {
