@@ -20,17 +20,24 @@ func solve() {
 		g[u] = append(g[u], v)
 		g[v] = append(g[v], u)
 	}
+	if isBipartite(g) {
+		fmt.Println("YES")
+	} else {
+		fmt.Println("NO")
+	}
+}
+
+func isBipartite(g [][]int) bool {
 	colors := make([]bool, len(g))
 	marked := make([]bool, len(g))
 	for i := 0; i < len(g); i++ {
 		if !marked[i] {
 			if !dfs(g, marked, colors, i) {
-				fmt.Println("NO")
-				return
+				return false
 			}
 		}
 	}
-	fmt.Println("YES")
+	return true
 }
 
 func dfs(g [][]int, marked []bool, colors []bool, w int) bool {
